@@ -14,6 +14,19 @@
       </div>
     </div>
 
+    <div class="section-skeleton" id="tab-skeleton" aria-hidden="true">
+      <div class="skeleton-card">
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line medium"></div>
+        <div class="skeleton-line tall"></div>
+        <div class="skeleton-row">
+          <div class="skeleton-block"></div>
+          <div class="skeleton-block"></div>
+          <div class="skeleton-block"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="page-content">
       <header class="hero">
         <nav>
@@ -71,6 +84,30 @@
         window.setTimeout(() => {
           document.body.classList.add('loaded');
         }, 900);
+      });
+
+      const navLinks = document.querySelectorAll('nav a');
+      const skeleton = document.getElementById('tab-skeleton');
+
+      navLinks.forEach((link) => {
+        link.addEventListener('click', (event) => {
+          const targetId = link.getAttribute('href')?.slice(1);
+          if (!targetId) return;
+
+          event.preventDefault();
+          const targetSection = document.getElementById(targetId);
+
+          if (!targetSection) return;
+
+          skeleton.classList.add('active');
+
+          window.setTimeout(() => {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.setTimeout(() => {
+              skeleton.classList.remove('active');
+            }, 350);
+          }, 650);
+        });
       });
     </script>
   </body>

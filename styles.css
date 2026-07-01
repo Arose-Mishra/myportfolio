@@ -72,17 +72,93 @@ body.loaded .page-content {
   transform: translateY(0);
 }
 
+.section-skeleton {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(2, 6, 23, 0.86);
+  backdrop-filter: blur(12px);
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.section-skeleton.active {
+  display: flex;
+  opacity: 1;
+}
+
+.skeleton-card {
+  width: min(720px, 100%);
+  padding: 1.5rem;
+  border-radius: 24px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 45px rgba(2, 6, 23, 0.35);
+}
+
+.skeleton-line,
+.skeleton-block {
+  background: linear-gradient(90deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.08) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.1s linear infinite;
+}
+
+.skeleton-line {
+  height: 14px;
+  border-radius: 999px;
+  margin-bottom: 0.8rem;
+}
+
+.skeleton-line.short {
+  width: 40%;
+}
+
+.skeleton-line.medium {
+  width: 65%;
+}
+
+.skeleton-line.tall {
+  width: 85%;
+  height: 18px;
+  margin-bottom: 1.2rem;
+}
+
+.skeleton-row {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 1rem;
+}
+
+.skeleton-block {
+  height: 110px;
+  border-radius: 16px;
+}
+
 nav {
   display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  padding: 1.25rem 2rem;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem 2rem 0;
 }
 
 nav a {
   color: var(--text);
   text-decoration: none;
   font-weight: 600;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+nav a:hover {
+  background: rgba(56, 189, 248, 0.16);
+  color: var(--accent);
+  transform: translateY(-2px);
 }
 
 .hero {
@@ -150,5 +226,14 @@ h2 {
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
   }
 }
